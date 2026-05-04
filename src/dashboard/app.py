@@ -50,6 +50,8 @@ with tab1:
                     st.success(f"✅ Invoice processed — Confidence: {result['confidence']*100:.1f}%")
 
                     # Simulate Power Automate and UiPath callbacks
+                    import time
+                    time.sleep(3)
                     invoice_id = result["invoice_id"]
                     requests.post(f"{API_BASE}/api/webhook/power-automate", json={
                         "invoice_id": invoice_id,
