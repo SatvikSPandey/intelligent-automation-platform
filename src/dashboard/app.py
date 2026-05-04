@@ -51,7 +51,7 @@ with tab1:
 
                     # Simulate Power Automate and UiPath callbacks
                     import time
-                    time.sleep(3)
+                    time.sleep(2)
                     invoice_id = result["invoice_id"]
                     requests.post(f"{API_BASE}/api/webhook/power-automate", json={
                         "invoice_id": invoice_id,
@@ -65,6 +65,9 @@ with tab1:
                         "robot": "InvoiceDataEntry",
                         "erp_entry": "success"
                     })
+                    updated = requests.get(f"{API_BASE}/api/invoice/{invoice_id}", timeout=10)
+                    if updated.status_code == 200:
+                        result = updated.json()
 
                     col_a, col_b = st.columns(2)
                     with col_a:
