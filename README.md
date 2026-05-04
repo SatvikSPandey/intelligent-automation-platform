@@ -123,3 +123,22 @@ streamlit run src/dashboard/app.py
 - GitHub: [github.com/SatvikSPandey](https://github.com/SatvikSPandey)
 - LinkedIn: [linkedin.com/in/satvikpandey-433555365](https://linkedin.com/in/satvikpandey-433555365)
 - Portfolio: [satvikspandey.netlify.app](https://satvikspandey.netlify.app)
+
+---
+
+## 🐳 Docker
+
+Run the API locally with Docker:
+
+```bash
+docker build -t intelligent-automation-platform .
+docker run -p 8000:8000 --env-file .env intelligent-automation-platform
+```
+
+Or with Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+API will be available at http://localhost:8000/docs
