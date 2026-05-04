@@ -49,6 +49,21 @@ with tab1:
                     result = response.json()
                     st.success(f"✅ Invoice processed — Confidence: {result['confidence']*100:.1f}%")
 
+                    # Simulate Power Automate and UiPath callbacks
+                    invoice_id = result["invoice_id"]
+                    requests.post(f"{API_BASE}/api/webhook/power-automate", json={
+                        "invoice_id": invoice_id,
+                        "status": "complete",
+                        "flow_name": "Invoice Processing Pipeline",
+                        "routed_to": "approved" if result["confidence"] >= 0.8 else "review"
+                    })
+                    requests.post(f"{API_BASE}/api/webhook/uipath", json={
+                        "invoice_id": invoice_id,
+                        "status": "complete",
+                        "robot": "InvoiceDataEntry",
+                        "erp_entry": "success"
+                    })
+
                     col_a, col_b = st.columns(2)
                     with col_a:
                         st.markdown("### Extraction Results")
